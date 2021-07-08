@@ -1,10 +1,10 @@
 import React from "react";
 
-import SearchField from "./components/SearchField";
+import Main from "./pages/Main";
 import "./App.css";
 
 function App() {
-  return <SearchField />;
+  return <Main />;
 }
 
 export default App;

@@ -3,13 +3,15 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 
-import CharacterService from "../../services/CharacterService";
+type SearchFieldType = {
+  onFormSubmit: (value: number) => void;
+};
 
 const schema = yup.object().shape({
   numberToSearch: yup.number().positive().integer().required(),
 });
 
-const SearchField = () => {
+const SearchField = ({ onFormSubmit }: SearchFieldType) => {
   const {
     register,
     handleSubmit,
@@ -21,7 +23,8 @@ const SearchField = () => {
 
   const onSubmit = async (data: { numberToSearch: number }) => {
     const { numberToSearch } = data;
-    CharacterService.getById(numberToSearch);
+
+    onFormSubmit(numberToSearch);
   };
 
   return (
