@@ -66,7 +66,7 @@ const Main = () => {
   return (
     <>
       <SearchField onFormSubmit={loadData} isLoading={isLoading} />
-      <Button onClick={clearCache} title="Clear" />
+      <Button onClick={clearCache} title="Clear" variant="outline" />
       <CharacterInfo
         infoData={infoData}
         portrait={portrait}

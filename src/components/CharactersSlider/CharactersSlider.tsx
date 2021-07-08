@@ -1,50 +1,43 @@
-import React from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import Slider from "react-slick";
+
+import CharacterPreview from "./CharacterPreview";
+
+import { CharacterType } from "../types";
 
 import "./slick.css";
 
+const settings = {
+  dots: true,
+  vertical: true,
+  infinite: true,
+  speed: 500,
+  slidesToShow: 3,
+  slidesToScroll: 3,
+};
+
 const CharactersSlider = () => {
-  const settings = {
-    dots: true,
-    vertical: true,
-    infinite: true,
-    speed: 500,
-    slidesToShow: 3,
-    slidesToScroll: 3,
-  };
+  const cachedData = localStorage.getItem("characters-cache");
+  const parsedCache = cachedData ? JSON.parse(cachedData) : [];
+
   return (
-    <div>
-      <h2> Multiple items </h2>
-      <Slider {...settings}>
-        <div>
-          <h3>1</h3>
-        </div>
-        <div>
-          <h3>2</h3>
-        </div>
-        <div>
-          <h3>3</h3>
-        </div>
-        <div>
-          <h3>4</h3>
-        </div>
-        <div>
-          <h3>5</h3>
-        </div>
-        <div>
-          <h3>6</h3>
-        </div>
-        <div>
-          <h3>7</h3>
-        </div>
-        <div>
-          <h3>8</h3>
-        </div>
-        <div>
-          <h3>9</h3>
-        </div>
-      </Slider>
-    </div>
+    <>
+      {parsedCache ? (
+        <>
+          <h2>Previously viewed</h2>
+          <Slider {...settings}>
+            {parsedCache.map((character: CharacterType) => (
+              <div key={character?.infoData?.id}>
+                <CharacterPreview
+                  src={character?.portrait}
+                  name={character?.infoData?.name}
+                />
+              </div>
+            ))}
+          </Slider>
+        </>
+      ) : null}
+    </>
   );
 };
 
