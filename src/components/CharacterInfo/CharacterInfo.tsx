@@ -1,10 +1,11 @@
 import React from "react";
 import ClipLoader from "react-spinners/ClipLoader";
 
-import { InfoData } from "../types";
 import CharactersSlider from "../CharactersSlider";
 import CharacterDescription from "./CharacterDescription/CharacterDescription";
 import CharacterPortrait from "./CharacterPortrait";
+
+import { InfoData } from "../types";
 
 import bgImage from "../../assets/images/rick-and-morty-bg.png";
 

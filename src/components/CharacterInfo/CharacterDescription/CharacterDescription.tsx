@@ -4,7 +4,7 @@ import { InfoData } from "../../types";
 import DescriptionItem from "./DescriptionItem";
 
 const CharacterDescription = ({ ...infoData }: { data: InfoData }) => {
-  const { name, species, type, location, origin, status } = infoData.data;
+  const { id, name, species, type, location, origin, status } = infoData.data;
 
   return (
     <table>

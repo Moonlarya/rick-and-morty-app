@@ -13,6 +13,7 @@ export type CharacterType = {
 };
 
 export type InfoData = {
+  id: string;
   name?: string;
   species?: string;
   type?: string;

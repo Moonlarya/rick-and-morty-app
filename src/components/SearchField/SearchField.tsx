@@ -1,7 +1,9 @@
+import { yupResolver } from "@hookform/resolvers/yup";
 import React from "react";
 import { useForm, useFormState } from "react-hook-form";
-import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
+
+import Button from "../Button";
 
 type SearchFieldType = {
   onFormSubmit: (value: number) => void;
@@ -33,9 +35,7 @@ const SearchField = ({ onFormSubmit, isLoading }: SearchFieldType) => {
       <input {...register("numberToSearch")} />
       {errors.numberToSearch && "Please, input number to search"}
 
-      <button type="submit" disabled={isLoading}>
-        Search
-      </button>
+      <Button type="submit" disabled={isLoading} title="Search" />
     </form>
   );
 };
