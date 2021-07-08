@@ -1,7 +1,7 @@
 import ApiService from "./ApiService";
 
 class CharacterService extends ApiService {
-  private category = "characters";
+  private category = "character";
 
   public async getById(id: number | string) {
     const response = await this.request({
