@@ -6,7 +6,7 @@ const DescriptionItem = ({ title, value }: DescriptionItemProps) => {
   return (
     <tr>
       <th>{title}</th>
-      <td>{value}</td>
+      <td>{value ? value : "Unknown"}</td>
     </tr>
   );
 };

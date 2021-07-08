@@ -1,14 +1,33 @@
 import React from "react";
+import ClipLoader from "react-spinners/ClipLoader";
 
-import { CharacterType } from "../types";
+import { InfoData } from "../types";
+import CharactersSlider from "../CharactersSlider";
 import CharacterDescription from "./CharacterDescription/CharacterDescription";
 import CharacterPortrait from "./CharacterPortrait";
 
-const CharacterInfo = ({ portrait, infoData }: CharacterType) => {
+import bgImage from "../../assets/images/rick-and-morty-bg.png";
+
+type CharacterInfoPropsType = {
+  portrait?: string;
+  infoData?: InfoData;
+  isLoading: boolean;
+};
+
+const CharacterInfo = ({
+  portrait,
+  infoData,
+  isLoading,
+}: CharacterInfoPropsType) => {
   return (
     <>
-      <CharacterPortrait src={portrait || ""} />
+      {isLoading ? (
+        <ClipLoader />
+      ) : (
+        <CharacterPortrait src={portrait || bgImage} />
+      )}
       {infoData ? <CharacterDescription data={infoData} /> : null}
+      <CharactersSlider />
     </>
   );
 };

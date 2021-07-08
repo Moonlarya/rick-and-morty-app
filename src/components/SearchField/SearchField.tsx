@@ -1,17 +1,18 @@
 import React from "react";
-import { useForm } from "react-hook-form";
+import { useForm, useFormState } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 
 type SearchFieldType = {
   onFormSubmit: (value: number) => void;
+  isLoading: boolean;
 };
 
 const schema = yup.object().shape({
   numberToSearch: yup.number().positive().integer().required(),
 });
 
-const SearchField = ({ onFormSubmit }: SearchFieldType) => {
+const SearchField = ({ onFormSubmit, isLoading }: SearchFieldType) => {
   const {
     register,
     handleSubmit,
@@ -21,7 +22,7 @@ const SearchField = ({ onFormSubmit }: SearchFieldType) => {
     mode: "onChange",
   });
 
-  const onSubmit = async (data: { numberToSearch: number }) => {
+  const onSubmit = (data: { numberToSearch: number }) => {
     const { numberToSearch } = data;
 
     onFormSubmit(numberToSearch);
@@ -32,7 +33,9 @@ const SearchField = ({ onFormSubmit }: SearchFieldType) => {
       <input {...register("numberToSearch")} />
       {errors.numberToSearch && "Please, input number to search"}
 
-      <button type="submit">Search</button>
+      <button type="submit" disabled={isLoading}>
+        Search
+      </button>
     </form>
   );
 };

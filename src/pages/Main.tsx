@@ -8,8 +8,11 @@ import CharacterService from "../services/CharacterService";
 
 const Main = () => {
   const [data, setData] = useState<CharacterType | undefined>();
+  const [isLoading, setLoading] = useState<boolean>(false);
 
   const loadData = async (id: number) => {
+    setLoading(true);
+
     const data = await CharacterService.getById(id);
     const {
       name,
@@ -33,14 +36,20 @@ const Main = () => {
         status,
       },
     });
+
+    setLoading(false);
   };
 
   const { infoData, portrait } = data || {};
 
   return (
     <>
-      <SearchField onFormSubmit={loadData} />
-      <CharacterInfo infoData={infoData} portrait={portrait} />
+      <SearchField onFormSubmit={loadData} isLoading={isLoading} />
+      <CharacterInfo
+        infoData={infoData}
+        portrait={portrait}
+        isLoading={isLoading}
+      />
     </>
   );
 };
