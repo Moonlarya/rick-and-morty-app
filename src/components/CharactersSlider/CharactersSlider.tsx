@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useState } from "react";
 import Slider from "react-slick";
 import styled from "styled-components";
 
@@ -7,6 +7,7 @@ import CharacterPreview from "./CharacterPreview";
 import { CharacterType } from "../types";
 
 import "./slick.css";
+import Button from "../Button";
 
 type CharactersSliderPropsType = {
   loadedCharacter?: CharacterType;
@@ -31,10 +32,15 @@ const CharactersSlider = ({ onClick }: CharactersSliderPropsType) => {
     null
   );
 
+  const clearCache = () => {
+    localStorage.removeItem("characters-cache");
+  };
+
   return (
     <>
-      {parsedCache ? (
+      {parsedCache.length ? (
         <>
+          <Button onClick={clearCache} title="Clear All" variant="outline" />
           <h2>Previously viewed</h2>
           <Slider {...settings}>
             {parsedCache.map((character: CharacterType) => {

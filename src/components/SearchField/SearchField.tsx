@@ -38,14 +38,21 @@ const SearchField = ({ onFormSubmit, isLoading }: SearchFieldType) => {
         maxLength={10}
         placeholder="Enter any number"
       />
-      <Button type="submit" disabled={isLoading} title="Search" />
+      <FormSubmitButton type="submit" disabled={isLoading} title="Search" />
       {errors.numberToSearch && <Error>Please, input number to search</Error>}
     </Form>
   );
 };
 
 const Form = styled.form`
-  margin: 10px;
+  margin: 10px 0;
+  position: relative;
+  width: max-content;
+`;
+
+const FormSubmitButton = styled(Button)`
+  position: absolute;
+  right: 0;
 `;
 
 const InputField = styled.input`
@@ -80,6 +87,13 @@ const InputField = styled.input`
   &::placeholder {
     color: #6194499b;
     font-style: italic;
+  }
+
+  &:-webkit-autofill,
+  &:-webkit-autofill:hover,
+  &:-webkit-autofill:focus,
+  &:-webkit-autofill:active {
+    -webkit-box-shadow: 0 0 0 30px white inset !important;
   }
 `;
 

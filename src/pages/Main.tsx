@@ -1,7 +1,8 @@
 import React, { useState } from "react";
+import styled from "styled-components";
 
-import Button from "../components/Button";
 import CharacterInfo from "../components/CharacterInfo";
+import CharactersSlider from "../components/CharactersSlider";
 import SearchField from "../components/SearchField";
 
 import { CharacterType } from "../components/types";
@@ -57,25 +58,39 @@ const Main = () => {
     localStorage.setItem("characters-cache", JSON.stringify(updatedCache));
   };
 
-  const clearCache = () => {
-    localStorage.removeItem("characters-cache");
-  };
-
   const { infoData, portrait } = character || {};
 
   return (
-    <>
-      <SearchField onFormSubmit={loadData} isLoading={isLoading} />
-      <Button onClick={clearCache} title="Clear" variant="outline" />
-      <CharacterInfo
-        infoData={infoData}
-        portrait={portrait}
-        isLoading={isLoading}
-        loadedCharacter={character}
-        onClick={(character: CharacterType) => setCharacter(character)}
-      />
-    </>
+    <PageWrapper>
+      <aside>
+        <SearchField onFormSubmit={loadData} isLoading={isLoading} />
+        <CharacterInfo
+          infoData={infoData}
+          portrait={portrait}
+          isLoading={isLoading}
+        />
+      </aside>
+      <aside>
+        <CharactersSlider
+          loadedCharacter={character}
+          onClick={(character: CharacterType) => setCharacter(character)}
+        />
+      </aside>
+    </PageWrapper>
   );
 };
+
+const GridWrapper = styled.main`
+  width: 100%;
+  display: grid;
+`;
+
+const PageWrapper = styled(GridWrapper)`
+  grid-template-columns: 2fr 1fr;
+  height: 100vh;
+  min-height: max-content;
+  padding: 20px;
+  box-sizing: border-box;
+`;
 
 export default Main;

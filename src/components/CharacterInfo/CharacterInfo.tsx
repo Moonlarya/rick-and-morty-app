@@ -1,11 +1,11 @@
 import React from "react";
-import ClipLoader from "react-spinners/ClipLoader";
+import styled from "styled-components";
 
-import CharactersSlider from "../CharactersSlider";
 import CharacterDescription from "./CharacterDescription/CharacterDescription";
 import CharacterPortrait from "./CharacterPortrait";
+import ImageLoaderSpinner from "./ImageLoaderSpinner";
 
-import { CharacterType, InfoData } from "../types";
+import { InfoData } from "../types";
 
 import bgImage from "../../assets/images/rick-and-morty-bg.png";
 
@@ -13,28 +13,37 @@ type CharacterInfoPropsType = {
   portrait?: string;
   infoData?: InfoData;
   isLoading: boolean;
-  loadedCharacter?: CharacterType;
-  onClick: (character: CharacterType) => void;
 };
 
 const CharacterInfo = ({
   portrait,
   infoData,
   isLoading,
-  loadedCharacter,
-  onClick,
 }: CharacterInfoPropsType) => {
   return (
-    <>
-      {isLoading ? (
-        <ClipLoader />
-      ) : (
-        <CharacterPortrait src={portrait || bgImage} />
-      )}
+    <CharacterInfoWrapper>
+      <ImageWrapper>
+        {isLoading ? (
+          <ImageLoaderSpinner />
+        ) : (
+          <CharacterPortrait src={portrait || bgImage} />
+        )}
+      </ImageWrapper>
       {infoData ? <CharacterDescription data={infoData} /> : null}
-      <CharactersSlider loadedCharacter={loadedCharacter} onClick={onClick} />
-    </>
+    </CharacterInfoWrapper>
   );
 };
+
+const ImageWrapper = styled.div`
+  width: 235px;
+  height: 235px;
+  overflow: hidden;
+  border-radius: 5px;
+  box-shadow: 0px 0px 23px 0px rgba(34, 60, 80, 0.2);
+`;
+
+const CharacterInfoWrapper = styled.section`
+  display: flex;
+`;
 
 export default CharacterInfo;

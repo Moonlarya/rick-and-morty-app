@@ -41,9 +41,16 @@ const Button = ({
   );
 };
 
-const PrimaryButtonComponent = styled.button<{
+const MainButton = styled.button<{
   variant: "outline" | "primary";
 }>`
+  margin: 0 10px;
+  padding: 10px 30px;
+  border: none;
+  cursor: pointer;
+`;
+
+const PrimaryButtonComponent = styled(MainButton)`
   background-image: linear-gradient(
     to right,
     #56ab2f 0%,
@@ -51,8 +58,6 @@ const PrimaryButtonComponent = styled.button<{
     #56ab2f 100%
   );
 
-  margin: 0 10px;
-  padding: 10px 30px;
   text-align: center;
   text-transform: uppercase;
   transition: 0.5s;
@@ -61,7 +66,6 @@ const PrimaryButtonComponent = styled.button<{
   box-shadow: 0 0 20px #eee;
   border-radius: 10px;
   border: none;
-  cursor: pointer;
 
   &:hover {
     background-position: right center;
@@ -70,13 +74,11 @@ const PrimaryButtonComponent = styled.button<{
   }
 `;
 
-const OutlinedButtonComponent = styled.button<{
-  variant: "outline" | "primary";
-}>`
+const OutlinedButtonComponent = styled(MainButton)`
   color: #56ab2f;
-  border: none;
   background-color: #00000000;
-  cursor: pointer;
+  padding: 10px 0;
+  margin: 10px 0;
 `;
 
 export default Button;
