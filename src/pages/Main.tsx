@@ -71,6 +71,8 @@ const Main = () => {
         infoData={infoData}
         portrait={portrait}
         isLoading={isLoading}
+        loadedCharacter={character}
+        onClick={(character: CharacterType) => setCharacter(character)}
       />
     </>
   );

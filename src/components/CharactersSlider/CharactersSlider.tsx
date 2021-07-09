@@ -1,9 +1,15 @@
 import React, { useCallback, useEffect, useState } from "react";
 import Slider from "react-slick";
+import styled from "styled-components";
 
 import CharacterPreview from "./CharacterPreview";
 
 import { CharacterType } from "../types";
+
+type CharactersSliderPropsType = {
+  loadedCharacter?: CharacterType;
+  onClick: (character: CharacterType) => void;
+};
 
 const settings = {
   vertical: true,
@@ -15,9 +21,13 @@ const settings = {
   slidesToScroll: 3,
 };
 
-const CharactersSlider = () => {
+const CharactersSlider = ({ onClick }: CharactersSliderPropsType) => {
   const cachedData = localStorage.getItem("characters-cache");
   const parsedCache = cachedData ? JSON.parse(cachedData) : [];
+
+  const [activeCharacter, setActiveCharacter] = useState<CharacterType | null>(
+    null
+  );
 
   return (
     <>
@@ -26,11 +36,21 @@ const CharactersSlider = () => {
           <h2>Previously viewed</h2>
           <Slider {...settings}>
             {parsedCache.map((character: CharacterType) => (
-              <CharacterPreview
+              <PreviewWrapper
                 key={character?.infoData?.id}
-                src={character?.portrait}
-                name={character?.infoData?.name}
-              />
+                onClick={() => {
+                  setActiveCharacter(character);
+                  onClick(character);
+                }}
+              >
+                {activeCharacter?.infoData?.id !== character?.infoData?.id && (
+                  <Overlay />
+                )}
+                <CharacterPreview
+                  src={character?.portrait}
+                  name={character?.infoData?.name}
+                />
+              </PreviewWrapper>
             ))}
           </Slider>
         </>
@@ -38,5 +58,23 @@ const CharactersSlider = () => {
     </>
   );
 };
+
+const PreviewWrapper = styled.div<{
+  onClick: (character: CharacterType) => void;
+}>`
+  position: relative;
+  width: max-content;
+  height: max-content;
+  cursor: pointer;
+`;
+
+const Overlay = styled.div`
+  width: 60px;
+  height: 60px;
+  border-radius: 5px;
+  background-color: #e6e6e681;
+  position: absolute;
+  z-index: 3;
+`;
 
 export default CharactersSlider;
