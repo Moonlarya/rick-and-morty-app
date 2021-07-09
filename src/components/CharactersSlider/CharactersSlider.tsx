@@ -6,6 +6,8 @@ import CharacterPreview from "./CharacterPreview";
 
 import { CharacterType } from "../types";
 
+import "./slick.css";
+
 type CharactersSliderPropsType = {
   loadedCharacter?: CharacterType;
   onClick: (character: CharacterType) => void;
@@ -35,23 +37,27 @@ const CharactersSlider = ({ onClick }: CharactersSliderPropsType) => {
         <>
           <h2>Previously viewed</h2>
           <Slider {...settings}>
-            {parsedCache.map((character: CharacterType) => (
-              <PreviewWrapper
-                key={character?.infoData?.id}
-                onClick={() => {
-                  setActiveCharacter(character);
-                  onClick(character);
-                }}
-              >
-                {activeCharacter?.infoData?.id !== character?.infoData?.id && (
-                  <Overlay />
-                )}
-                <CharacterPreview
-                  src={character?.portrait}
-                  name={character?.infoData?.name}
-                />
-              </PreviewWrapper>
-            ))}
+            {parsedCache.map((character: CharacterType) => {
+              const isActive =
+                activeCharacter?.infoData?.id === character?.infoData?.id;
+
+              return (
+                <PreviewWrapper
+                  isActive={isActive}
+                  key={character?.infoData?.id}
+                  onClick={() => {
+                    setActiveCharacter(character);
+                    onClick(character);
+                  }}
+                >
+                  {!isActive && <Overlay />}
+                  <CharacterPreview
+                    src={character?.portrait}
+                    name={character?.infoData?.name}
+                  />
+                </PreviewWrapper>
+              );
+            })}
           </Slider>
         </>
       ) : null}
@@ -60,12 +66,16 @@ const CharactersSlider = ({ onClick }: CharactersSliderPropsType) => {
 };
 
 const PreviewWrapper = styled.div<{
+  isActive: boolean;
   onClick: (character: CharacterType) => void;
 }>`
   position: relative;
-  width: max-content;
-  height: max-content;
   cursor: pointer;
+  padding: 5px;
+  border: ${(props) =>
+    props.isActive ? "1px solid #56ab2f" : "1px solid #0000000"};
+  border-radius: 5px;
+  width: max-content !important;
 `;
 
 const Overlay = styled.div`
