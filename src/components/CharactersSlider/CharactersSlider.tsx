@@ -5,13 +5,12 @@ import CharacterPreview from "./CharacterPreview";
 
 import { CharacterType } from "../types";
 
-import "./slick.css";
-
 const settings = {
-  dots: true,
   vertical: true,
+  verticalSwiping: true,
   infinite: true,
-  speed: 500,
+  autoplay: true,
+  autoplaySpeed: 2000,
   slidesToShow: 3,
   slidesToScroll: 3,
 };
@@ -27,12 +26,11 @@ const CharactersSlider = () => {
           <h2>Previously viewed</h2>
           <Slider {...settings}>
             {parsedCache.map((character: CharacterType) => (
-              <div key={character?.infoData?.id}>
-                <CharacterPreview
-                  src={character?.portrait}
-                  name={character?.infoData?.name}
-                />
-              </div>
+              <CharacterPreview
+                key={character?.infoData?.id}
+                src={character?.portrait}
+                name={character?.infoData?.name}
+              />
             ))}
           </Slider>
         </>
